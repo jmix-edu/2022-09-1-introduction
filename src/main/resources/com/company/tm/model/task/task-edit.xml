@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://taskEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="taskDc"
+                  class="com.company.tm.model.Task">
+            <fetchPlan extends="_base">
+                <property name="assignee" fetchPlan="_base"/>
+                <property name="project" fetchPlan="_base"/>
+                <property name="subtasks" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="subtasksDc" property="subtasks"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="subtasksTable">
+        <form id="form" dataContainer="taskDc">
+            <column width="350px">
+                <textField id="nameField" property="name"/>
+                <dateField id="dueDateField" property="dueDate"/>
+                <entityPicker id="assigneeField" property="assignee">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <entityPicker id="projectField" property="project">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <comboBox id="priorityField" property="priority"/>
+            </column>
+        </form>
+        <table id="subtasksTable" width="100%" dataContainer="subtasksDc" multiselect="true">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <buttonsPanel alwaysVisible="true">
+                <button id="subtasksTableCreateBtn" action="subtasksTable.create"/>
+                <button id="subtasksTableEditBtn" action="subtasksTable.edit"/>
+                <button id="subtasksTableRemoveBtn" action="subtasksTable.remove"/>
+            </buttonsPanel>
+            <columns>
+                <column id="name"/>
+                <column id="estimation"/>
+                <column id="completed"/>
+                <column id="task"/>
+            </columns>
+        </table>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
