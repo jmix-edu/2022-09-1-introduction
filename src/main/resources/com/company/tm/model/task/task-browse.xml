@@ -6,7 +6,10 @@
     <data readOnly="true">
         <collection id="tasksDc"
                     class="com.company.tm.model.Task">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="project" fetchPlan="_base"/>
+                <property name="assignee" fetchPlan="_base"/>
+            </fetchPlan>
             <loader id="tasksDl">
                 <query>
                     <![CDATA[select e from tm_Task e]]>
@@ -47,6 +50,8 @@
                 <column id="name"/>
                 <column id="dueDate"/>
                 <column id="priority"/>
+                <column id="project"/>
+                <column id="assignee"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
@@ -54,6 +59,7 @@
                 <button id="createBtn" action="tasksTable.create"/>
                 <button id="editBtn" action="tasksTable.edit"/>
                 <button id="removeBtn" action="tasksTable.remove"/>
+                <button id="importBtn" caption="msg://importBtn.caption"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

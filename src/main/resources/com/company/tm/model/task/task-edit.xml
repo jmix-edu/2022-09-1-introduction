@@ -13,6 +13,14 @@
             <loader/>
             <collection id="subtasksDc" property="subtasks"/>
         </instance>
+        <collection id="usersDc" class="com.company.tm.entity.User">
+            <fetchPlan extends="_base"/>
+            <loader id="usersDl">
+                <query>
+                    <![CDATA[select e from tm_User e order by e.username]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -34,12 +42,12 @@
             <column width="350px">
                 <textField id="nameField" property="name"/>
                 <dateField id="dueDateField" property="dueDate"/>
-                <entityPicker id="assigneeField" property="assignee">
+                <entityComboBox id="assigneeField" property="assignee" optionsContainer="usersDc">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
-                </entityPicker>
+                </entityComboBox>
                 <entityPicker id="projectField" property="project">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>

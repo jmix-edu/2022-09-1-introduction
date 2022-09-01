@@ -29,6 +29,8 @@
             <column width="350px">
                 <textField id="nameField" property="name"/>
                 <textArea id="descriptionField" property="description" rows="5"/>
+                <checkBox id="defaultProjectField" property="defaultProject"/>
+                <comboBox id="defaultTaskPriorityField" property="defaultTaskPriority"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

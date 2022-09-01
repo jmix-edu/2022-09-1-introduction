@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -26,6 +27,13 @@ public class Project {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @Column(name = "DEFAULT_PROJECT", nullable = false)
+    @NotNull
+    private Boolean defaultProject = false;
+
+    @Column(name = "DEFAULT_TASK_PRIORITY")
+    private Integer defaultTaskPriority;
 
     @InstanceName
     @Column(name = "NAME", nullable = false, length = 150)
@@ -66,6 +74,22 @@ public class Project {
     @Column(name = "LAST_MODIFIED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
+
+    public TaskPriority getDefaultTaskPriority() {
+        return defaultTaskPriority == null ? null : TaskPriority.fromId(defaultTaskPriority);
+    }
+
+    public void setDefaultTaskPriority(TaskPriority defaultTaskPriority) {
+        this.defaultTaskPriority = defaultTaskPriority == null ? null : defaultTaskPriority.getId();
+    }
+
+    public Boolean getDefaultProject() {
+        return defaultProject;
+    }
+
+    public void setDefaultProject(Boolean defaultProject) {
+        this.defaultProject = defaultProject;
+    }
 
     public String getDescription() {
         return description;
@@ -145,5 +169,10 @@ public class Project {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        setDefaultTaskPriority(TaskPriority.MEDIUM);
     }
 }
