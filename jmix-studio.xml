@@ -20,6 +20,19 @@
           </option>
         </ModuleSettings>
       </entry>
+      <entry key="task-management.main">
+        <ModuleSettings>
+          <option name="dataStoreOptions">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettings />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
     </moduleSettings>
   </component>
   <component name="JmixPluginProjectSettings">
@@ -34,6 +47,13 @@
           <option name="user" value="sa" />
         </SavedDbProperties>
       </list>
+    </option>
+  </component>
+  <component name="VersionUpdateSettings">
+    <option name="ignoredVersions">
+      <set>
+        <option value="1.3.3" />
+      </set>
     </option>
   </component>
 </project>

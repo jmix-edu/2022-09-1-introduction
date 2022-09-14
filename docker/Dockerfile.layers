@@ -1,0 +1,14 @@
+FROM bellsoft/liberica-openjdk-alpine as builder
+WORKDIR opt
+COPY task-management-0.0.1-SNAPSHOT.jar app.jar
+ENV SPRING_PROFILES_ACTIVE=prod
+EXPOSE 8080/tcp
+RUN java -Djarmode=layertools -jar app.jar extract
+
+FROM bellsoft/liberica-openjdk-alpine
+WORKDIR opt
+COPY --from=builder opt/dependencies/ ./
+COPY --from=builder opt/spring-boot-loader/ ./
+COPY --from=builder opt/snapshot-dependencies/ ./
+COPY --from=builder opt/application/ ./
+ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]

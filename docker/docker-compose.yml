@@ -1,0 +1,59 @@
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./etc/nginx.conf:/etc/nginx/nginx.conf:ro
+  web1:
+    image: task-management:0.0.1-SNAPSHOT
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://postgres/tm
+  web2:
+    image: task-management:0.0.1-SNAPSHOT
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://postgres/tm
+  postgres:
+    depends_on:
+      - postgres-1
+      - postgres-2
+    image: bitnami/pgpool:latest
+    environment:
+      - PGPOOL_BACKEND_NODES=0:postgres-1:5432,1:postgres-2:5432
+      - PGPOOL_SR_CHECK_USER=postgres
+      - PGPOOL_SR_CHECK_PASSWORD=postgres
+      - PGPOOL_SR_CHECK_PERIOD=10
+      - PGPOOL_POSTGRES_USERNAME=postgres
+      - PGPOOL_POSTGRES_PASSWORD=postgres
+      - PGPOOL_ADMIN_USERNAME=admin
+      - PGPOOL_ADMIN_PASSWORD=postgres
+      - PGPOOL_HEALTH_CHECK_PERIOD=1
+      - PGPOOL_HEALTH_CHECK_TIMEOUT=1
+      - PGPOOL_HEALTH_CHECK_MAX_RETRIES=1
+      - PGPOOL_HEALTH_CHECK_RETRY_DELAY
+  postgres-1:
+    image: bitnami/postgresql-repmgr:latest
+    environment:
+      - POSTGRESQL_POSTGRES_PASSWORD=postgres
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRESQL_DATABASE=tm
+      - REPMGR_PASSWORD=repmgrpassword
+      - REPMGR_PRIMARY_HOST=postgres-1
+      - REPMGR_PARTNER_NODES=postgres-1,postgres-2
+      - REPMGR_NODE_NAME=postgres-1
+      - REPMGR_NODE_NETWORK_NAME=postgres-1
+  postgres-2:
+    image: bitnami/postgresql-repmgr:latest
+    environment:
+      - POSTGRESQL_POSTGRES_PASSWORD=postgres
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRESQL_DATABASE=tm
+      - REPMGR_PASSWORD=repmgrpassword
+      - REPMGR_PRIMARY_HOST=postgres-1
+      - REPMGR_PARTNER_NODES=postgres-1,postgres-2
+      - REPMGR_NODE_NAME=postgres-2
+      - REPMGR_NODE_NETWORK_NAME=postgres-2
