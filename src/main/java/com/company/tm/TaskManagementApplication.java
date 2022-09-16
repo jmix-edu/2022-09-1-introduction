@@ -27,13 +27,6 @@ public class TaskManagementApplication {
 
     @Bean
     @Primary
-    @ConfigurationProperties("main.datasource")
-    DataSourceProperties dataSourceProperties() {
-        return new DataSourceProperties();
-    }
-
-    @Bean
-    @Primary
     @ConfigurationProperties("main.datasource.hikari")
     DataSource dataSource(DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().build();

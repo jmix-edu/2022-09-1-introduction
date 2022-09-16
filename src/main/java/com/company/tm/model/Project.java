@@ -75,6 +75,17 @@ public class Project {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
+    @Column(name = "COMMENT_")
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public TaskPriority getDefaultTaskPriority() {
         return defaultTaskPriority == null ? null : TaskPriority.fromId(defaultTaskPriority);
     }

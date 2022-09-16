@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tm-db-volume
+  labels:
+    type: local
+    app: tm-db
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tm-db-pvclaim
+  labels:
+    app: tm-db
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

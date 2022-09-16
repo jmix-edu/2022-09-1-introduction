@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tm-db-config
+data:
+  db_url: jdbc:postgresql://tm-db-service/tm1
+  db_user: postgres
+  db_password: postgres
