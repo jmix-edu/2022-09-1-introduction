@@ -4,7 +4,7 @@
         focusComponent="form">
     <data>
         <instance id="subtaskDc"
-                  class="com.company.tm.model.Subtask">
+                  class="com.company.tm.entity.Subtask">
             <fetchPlan extends="_base">
                 <property name="task" fetchPlan="_base"/>
             </fetchPlan>

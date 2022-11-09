@@ -1,13 +1,12 @@
-package com.company.tm.model.task;
+package com.company.tm.screen.task;
 
 import com.company.tm.entity.User;
-import com.company.tm.model.Project;
-import io.jmix.core.security.CurrentAuthentication;
+import com.company.tm.entity.Project;
 import io.jmix.core.usersubstitution.CurrentUserSubstitution;
 import io.jmix.ui.component.HasValue;
 import io.jmix.ui.model.InstanceContainer;
 import io.jmix.ui.screen.*;
-import com.company.tm.model.Task;
+import com.company.tm.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("tm_Task.edit")

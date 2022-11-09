@@ -1,7 +1,7 @@
 package com.company.tm.screen.subtask;
 
 import io.jmix.ui.screen.*;
-import com.company.tm.model.Subtask;
+import com.company.tm.entity.Subtask;
 
 @UiController("tm_Subtask.edit")
 @UiDescriptor("subtask-edit.xml")

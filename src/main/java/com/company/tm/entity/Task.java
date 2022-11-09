@@ -1,6 +1,5 @@
-package com.company.tm.model;
+package com.company.tm.entity;
 
-import com.company.tm.entity.User;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;

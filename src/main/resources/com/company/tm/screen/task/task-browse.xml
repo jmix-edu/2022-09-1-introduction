@@ -5,7 +5,7 @@
         focusComponent="tasksTable">
     <data readOnly="true">
         <collection id="tasksDc"
-                    class="com.company.tm.model.Task">
+                    class="com.company.tm.entity.Task">
             <fetchPlan extends="_base">
                 <property name="project" fetchPlan="_base"/>
                 <property name="assignee" fetchPlan="_base"/>

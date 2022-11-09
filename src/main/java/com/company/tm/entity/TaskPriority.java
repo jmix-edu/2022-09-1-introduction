@@ -1,4 +1,4 @@
-package com.company.tm.model;
+package com.company.tm.entity;
 
 import io.jmix.core.metamodel.datatype.impl.EnumClass;
 

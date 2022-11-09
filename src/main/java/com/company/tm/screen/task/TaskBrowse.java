@@ -1,11 +1,11 @@
-package com.company.tm.model.task;
+package com.company.tm.screen.task;
 
 import com.company.tm.app.TaskImportService;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.Button;
 import io.jmix.ui.model.CollectionLoader;
 import io.jmix.ui.screen.*;
-import com.company.tm.model.Task;
+import com.company.tm.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("tm_Task.browse")

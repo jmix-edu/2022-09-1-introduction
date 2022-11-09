@@ -1,4 +1,4 @@
-package com.company.tm.model;
+package com.company.tm.entity;
 
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -10,52 +10,39 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "TM_PROJECT", indexes = {
-        @Index(name = "IDX_TM_PROJECT_UNQ", columnList = "NAME", unique = true)
+@Table(name = "TM_SUBTASK", indexes = {
+        @Index(name = "IDX_TM_SUBTASK_TASK", columnList = "TASK_ID")
 })
-@Entity(name = "tm_Project")
-public class Project {
-
+@Entity(name = "tm_Subtask")
+public class Subtask {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
 
-    @Column(name = "DEFAULT_PROJECT", nullable = false)
-    @NotNull
-    private Boolean defaultProject = false;
-
-    @Column(name = "DEFAULT_TASK_PRIORITY")
-    private Integer defaultTaskPriority;
-
     @InstanceName
-    @Column(name = "NAME", nullable = false, length = 150)
+    @Column(name = "NAME", nullable = false)
     @NotNull
     private String name;
 
-    @Lob
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Positive
+    @Column(name = "ESTIMATION")
+    private Integer estimation;
+
+    @Column(name = "COMPLETED", nullable = false)
+    @NotNull
+    private Boolean completed = false;
 
     @Column(name = "VERSION", nullable = false)
     @Version
     private Integer version;
-
-    @DeletedBy
-    @Column(name = "DELETED_BY")
-    private String deletedBy;
-
-    @DeletedDate
-    @Column(name = "DELETED_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date deletedDate;
 
     @CreatedBy
     @Column(name = "CREATED_BY")
@@ -75,28 +62,41 @@ public class Project {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    public TaskPriority getDefaultTaskPriority() {
-        return defaultTaskPriority == null ? null : TaskPriority.fromId(defaultTaskPriority);
+    @DeletedBy
+    @Column(name = "DELETED_BY")
+    private String deletedBy;
+
+    @DeletedDate
+    @Column(name = "DELETED_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deletedDate;
+
+    @JoinColumn(name = "TASK_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Task task;
+
+    public Task getTask() {
+        return task;
     }
 
-    public void setDefaultTaskPriority(TaskPriority defaultTaskPriority) {
-        this.defaultTaskPriority = defaultTaskPriority == null ? null : defaultTaskPriority.getId();
+    public void setTask(Task task) {
+        this.task = task;
     }
 
-    public Boolean getDefaultProject() {
-        return defaultProject;
+    public Boolean getCompleted() {
+        return completed;
     }
 
-    public void setDefaultProject(Boolean defaultProject) {
-        this.defaultProject = defaultProject;
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getEstimation() {
+        return estimation;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEstimation(Integer estimation) {
+        this.estimation = estimation;
     }
 
     public String getName() {
@@ -105,6 +105,22 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getDeletedDate() {
+        return deletedDate;
+    }
+
+    public void setDeletedDate(Date deletedDate) {
+        this.deletedDate = deletedDate;
+    }
+
+    public String getDeletedBy() {
+        return deletedBy;
+    }
+
+    public void setDeletedBy(String deletedBy) {
+        this.deletedBy = deletedBy;
     }
 
     public Date getLastModifiedDate() {
@@ -139,22 +155,6 @@ public class Project {
         this.createdBy = createdBy;
     }
 
-    public Date getDeletedDate() {
-        return deletedDate;
-    }
-
-    public void setDeletedDate(Date deletedDate) {
-        this.deletedDate = deletedDate;
-    }
-
-    public String getDeletedBy() {
-        return deletedBy;
-    }
-
-    public void setDeletedBy(String deletedBy) {
-        this.deletedBy = deletedBy;
-    }
-
     public Integer getVersion() {
         return version;
     }
@@ -169,10 +169,5 @@ public class Project {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    @PostConstruct
-    public void postConstruct() {
-        setDefaultTaskPriority(TaskPriority.MEDIUM);
     }
 }

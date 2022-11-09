@@ -1,7 +1,7 @@
 package com.company.tm.security;
 
-import com.company.tm.model.Task;
-import com.company.tm.model.TaskPriority;
+import com.company.tm.entity.Task;
+import com.company.tm.entity.TaskPriority;
 import io.jmix.security.model.RowLevelPolicyAction;
 import io.jmix.security.model.RowLevelPredicate;
 import io.jmix.security.role.annotation.JpqlRowLevelPolicy;

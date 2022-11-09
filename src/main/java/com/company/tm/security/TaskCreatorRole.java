@@ -1,7 +1,7 @@
 package com.company.tm.security;
 
-import com.company.tm.model.Project;
-import com.company.tm.model.Task;
+import com.company.tm.entity.Project;
+import com.company.tm.entity.Task;
 import io.jmix.security.model.EntityAttributePolicyAction;
 import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;

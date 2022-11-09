@@ -1,7 +1,7 @@
 package com.company.tm.app;
 
-import com.company.tm.model.Project;
-import com.company.tm.model.Task;
+import com.company.tm.entity.Project;
+import com.company.tm.entity.Task;
 import io.jmix.core.DataManager;
 import io.jmix.core.EntitySet;
 import io.jmix.core.SaveContext;
